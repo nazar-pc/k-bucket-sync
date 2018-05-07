@@ -31,7 +31,7 @@ function Wrapper (array-map-set)
 		 *
 		 * @return {boolean} `true` if node was added/updated or `false` otherwise
 		 */
-		set : (id, data = null, on_full = null) ->
+		'set' : (id, data = null, on_full = null) ->
 			node		= @_root
 			bit_index	= 0
 
@@ -62,7 +62,7 @@ function Wrapper (array-map-set)
 		/**
 		 * @return {!Array<!ArrayBufferView>}
 		 */
-		get_all : ->
+		'get_all' : ->
 			@_get_node_contacts(@_root)
 		/**
 		 * @param {!Object} node
@@ -79,17 +79,17 @@ function Wrapper (array-map-set)
 		 *
 		 * @return {*} Data associated with node it it exists or `null` otherwise
 		 */
-		get_data : (id) ->
+		'get_data' : (id) ->
 			@_node_data.get(id) || null
 		/**
 		 * @return {number}
 		 */
-		count : ->
+		'count' : ->
 			@_node_data.size
 		/**
 		 * @param {!ArrayBufferView} id Node ID
 		 */
-		del : (id) !->
+		'del' : (id) !->
 			if !@_node_data.has(id)
 				return
 
@@ -109,7 +109,7 @@ function Wrapper (array-map-set)
 		 *
 		 * @return {!Array<!ArrayBufferView>} Array of node IDs closest to specified ID (`number` of nodes max)
 		 */
-		closest : (id, number = Infinity) ->
+		'closest' : (id, number = Infinity) ->
 			Array.from(@_node_data.keys())
 				.sort (a, b) ~>
 					@_distance(a, id) - @_distance(b, id)

@@ -34,7 +34,7 @@
        *
        * @return {boolean} `true` if node was added/updated or `false` otherwise
        */
-      set: function(id, data, on_full){
+      'set': function(id, data, on_full){
         var node, bit_index;
         data == null && (data = null);
         on_full == null && (on_full = null);
@@ -66,7 +66,7 @@
       /**
        * @return {!Array<!ArrayBufferView>}
        */,
-      get_all: function(){
+      'get_all': function(){
         return this._get_node_contacts(this._root);
       }
       /**
@@ -86,19 +86,19 @@
        *
        * @return {*} Data associated with node it it exists or `null` otherwise
        */,
-      get_data: function(id){
+      'get_data': function(id){
         return this._node_data.get(id) || null;
       }
       /**
        * @return {number}
        */,
-      count: function(){
+      'count': function(){
         return this._node_data.size;
       }
       /**
        * @param {!ArrayBufferView} id Node ID
        */,
-      del: function(id){
+      'del': function(id){
         var node, bit_index;
         if (!this._node_data.has(id)) {
           return;
@@ -118,7 +118,7 @@
        *
        * @return {!Array<!ArrayBufferView>} Array of node IDs closest to specified ID (`number` of nodes max)
        */,
-      closest: function(id, number){
+      'closest': function(id, number){
         var this$ = this;
         number == null && (number = Infinity);
         return Array.from(this._node_data.keys()).sort(function(a, b){
