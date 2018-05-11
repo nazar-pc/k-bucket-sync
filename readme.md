@@ -45,7 +45,7 @@ Get total number of nodes previously added.
 ### k_bucket_sync.del(id : ArrayBufferView)
 Delete previously added node.
 
-### k_bucket_sync.del(id : ArrayBufferView, number = Infinity : number) : Array
+### k_bucket_sync.closest(id : ArrayBufferView, number = Infinity : number) : ArrayBufferView[]
 Get `number` IDs of nodes closest to `id`.
 
 ## Contribution
