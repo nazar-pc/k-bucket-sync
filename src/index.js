@@ -90,6 +90,14 @@
         return this._node_data.get(id) || null;
       }
       /**
+       * @param {!ArrayBufferView} id Node ID
+       *
+       * @return {boolean} Whether `id` node exists in k-bucket
+       */,
+      'has': function(id){
+        return this._node_data.has(id);
+      }
+      /**
        * @return {number}
        */,
       'count': function(){

@@ -82,6 +82,13 @@ function Wrapper (array-map-set)
 		'get_data' : (id) ->
 			@_node_data.get(id) || null
 		/**
+		 * @param {!ArrayBufferView} id Node ID
+		 *
+		 * @return {boolean} Whether `id` node exists in k-bucket
+		 */
+		'has' : (id) ->
+			@_node_data.has(id)
+		/**
 		 * @return {number}
 		 */
 		'count' : ->

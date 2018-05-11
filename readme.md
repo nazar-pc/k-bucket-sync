@@ -39,11 +39,14 @@ Get an array IDs of all of the nodes previously added in the same order as they 
 ### k_bucket_sync.get_data(id : ArrayBufferView) : *
 Get associated data for previously added node.
 
-### k_bucket_sync.count() : number
-Get total number of nodes previously added.
+### k_bucket_sync.has(id : ArrayBufferView) : boolean
+Check whether `id` node exists in k-bucket.
 
 ### k_bucket_sync.del(id : ArrayBufferView)
 Delete previously added node.
+
+### k_bucket_sync.count() : number
+Get total number of nodes previously added.
 
 ### k_bucket_sync.closest(id : ArrayBufferView, number = Infinity : number) : ArrayBufferView[]
 Get `number` IDs of nodes closest to `id`.
