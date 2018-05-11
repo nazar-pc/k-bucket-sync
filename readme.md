@@ -34,7 +34,7 @@ Add new node with specified ID and associated data or move node to the most rece
 Returns `true` if succeeded, and `false` if there is no more space in the bucket (in this case optional `on_full` callback will be called with an array of node IDs in that bucket).
 
 ### k_bucket_sync.get_all() : Array
-Get an array IDs of all of the nodes previously added.
+Get an array IDs of all of the nodes previously added in the same order as they appear in buckets tree.
 
 ### k_bucket_sync.get_data(id : ArrayBufferView) : *
 Get associated data for previously added node.

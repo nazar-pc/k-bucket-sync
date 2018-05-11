@@ -110,10 +110,33 @@ function Wrapper (array-map-set)
 		 * @return {!Array<!ArrayBufferView>} Array of node IDs closest to specified ID (`number` of nodes max)
 		 */
 		'closest' : (id, number = Infinity) ->
-			Array.from(@_node_data.keys())
-				.sort (a, b) ~>
-					@_distance(a, id) - @_distance(b, id)
+			# No need to make loop and lots of computations if there are not many nodes in general
+			if @_node_data.size <= number
+				contacts = Array.from(@_node_data.keys())
+			else
+				contacts		= []
+				nodes_to_check	= [@_root]
+				bit_index		= 0
+				while nodes_to_check.length > 0 && contacts.length < number
+					node = nodes_to_check.pop()
+					if node.contacts == null
+						closer_node = @_determine_node(bit_index, id, node)
+						bit_index++
+						if closer_node == node.left
+							nodes_to_check.push(node.right, node.left)
+						else
+							nodes_to_check.push(node.left, node.right)
+					else
+						contacts = contacts.concat(Array.from(node.contacts))
+
+			contacts
+				.map (a) ~>
+					[@_distance(a, id), a]
+				.sort (a, b) ->
+					a[0] - b[0]
 				.slice(0, number)
+				.map (a) ->
+					a[1]
 		/**
 		 * @return {!Object}
 		 */

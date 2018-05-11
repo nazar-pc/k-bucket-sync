@@ -119,11 +119,36 @@
        * @return {!Array<!ArrayBufferView>} Array of node IDs closest to specified ID (`number` of nodes max)
        */,
       'closest': function(id, number){
-        var this$ = this;
+        var contacts, nodes_to_check, bit_index, node, closer_node, this$ = this;
         number == null && (number = Infinity);
-        return Array.from(this._node_data.keys()).sort(function(a, b){
-          return this$._distance(a, id) - this$._distance(b, id);
-        }).slice(0, number);
+        if (this._node_data.size <= number) {
+          contacts = Array.from(this._node_data.keys());
+        } else {
+          contacts = [];
+          nodes_to_check = [this._root];
+          bit_index = 0;
+          while (nodes_to_check.length > 0 && contacts.length < number) {
+            node = nodes_to_check.pop();
+            if (node.contacts === null) {
+              closer_node = this._determine_node(bit_index, id, node);
+              bit_index++;
+              if (closer_node === node.left) {
+                nodes_to_check.push(node.right, node.left);
+              } else {
+                nodes_to_check.push(node.left, node.right);
+              }
+            } else {
+              contacts = contacts.concat(Array.from(node.contacts));
+            }
+          }
+        }
+        return contacts.map(function(a){
+          return [this$._distance(a, id), a];
+        }).sort(function(a, b){
+          return a[0] - b[0];
+        }).slice(0, number).map(function(a){
+          return a[1];
+        });
       }
       /**
        * @return {!Object}
